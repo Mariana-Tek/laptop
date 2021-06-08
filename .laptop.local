@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# brew cask install 'sublime-text'
-# brew cask install 'atom'
-# brew cask install 'postman'
-# brew cask install 'sketch'
+# brew install --cask 'sublime-text'
+# brew install --cask 'atom'
+# brew install --cask 'postman'
+# brew install --cask 'sketch'

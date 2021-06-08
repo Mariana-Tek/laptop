@@ -226,7 +226,13 @@ fi
 
 ## Python
 if [[ "$OS_VERSION" > 11.0.* ]]; then
-    echo "Skipping - please review MacOS Big Sur instructions in Laptop README.md"
+    echo "Setting special MacOS Big Sur C/C++ compiler flags as a workaround"
+    append_to_file "$LAPTOPRC" 'export CPPFLAGS="-I/usr/local/opt/zlib/include"'
+    append_to_file "$LAPTOPRC" 'export LDFLAGS="-L/usr/local/opt/zlib/lib"'
+    curl -fsSL https://raw.githubusercontent.com/jcarbaugh/repython/master/repython.sh | sh
+    append_to_file "$HOME/.zshrc" 'eval "$(pyenv init -)"'
+    append_to_file "$LAPTOPRC" 'LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"' 
+    pyenv install --patch --force  3.6.8 <<< curl -sSL 'https://github.com/python/cpython/commit/8ea6353.patch\?full_index\=1'
 else
    curl -fsSL https://raw.githubusercontent.com/jcarbaugh/repython/master/repython.sh | sh
    append_to_file "$HOME/.zshrc" 'eval "$(pyenv init -)"'
